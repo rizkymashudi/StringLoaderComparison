@@ -2,85 +2,93 @@
 //  ContentView.swift
 //  StringLoaderExample
 //
-//  Created by Rizky Mashudi on 16/06/24.
+//  Created by Finn Christoffer Kurniawan on 18/06/24.
 //
 
 import SwiftUI
-import CoreData
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
+    @State private var dbTime: Double = 0.0
+    @State private var nativeTime: Double = 0.0
+    @State private var stringsToShow: [String] = []
+    @State private var isShowingDatabaseContent = false
+    let dbHelper = DatabaseManager()
 
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
+        VStack {
+            HStack {
+                Button(action: {
+                    loadStringsFromDatabase()
+                }) {
+                    Text("Load from Database")
+                }
+                .padding()
+                .foregroundColor(.red)
+
+
+                Button(action: {
+                    loadStringsFromNative()
+                }) {
+                    Text("Load from Native")
+                }
+                .padding()
+                .foregroundColor(.blue)
+            }
+
+            ScrollView {
+                VStack(alignment: .leading) {
+                    ForEach(stringsToShow.indices, id: \.self) { index in
+                        Text(stringsToShow[index])
+                            .padding(.vertical, 4)
                     }
                 }
-                .onDelete(perform: deleteItems)
+                .padding()
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
+            .frame(maxHeight: .infinity)
+
+            Text("Database Time: \(String(format: "%.2f ms", dbTime * 1000))")
+                .padding(.top, 8)
+
+            Text("Native Time: \(String(format: "%.2f ms", nativeTime * 1000))")
+                .padding(.bottom, 8)
+        }
+        .onAppear {
+            dbHelper.dropTable()
+            for i in 1...150 {
+                dbHelper.initializeDatabase(index: i)
             }
-            Text("Select an item")
         }
     }
 
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+    private func loadStringsFromDatabase() {
+        let startTime = CFAbsoluteTimeGetCurrent()
+        var loadedStrings: [String] = []
+        for i in 1...150 {
+            if let value = dbHelper.getValueForId(i) {
+                loadedStrings.append("Database \(value)")
             }
         }
+        stringsToShow = loadedStrings
+        dbTime = CFAbsoluteTimeGetCurrent() - startTime
+        isShowingDatabaseContent = true
     }
 
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+    private func loadStringsFromNative() {
+        let startTime = CFAbsoluteTimeGetCurrent()
+        var loadedStrings: [String] = []
+        for i in 1...150 {
+            let key = "dummy_string_\(i)"
+            let string = "Native \(NSLocalizedString(key, comment: ""))"
+            loadedStrings.append(string)
         }
+        stringsToShow = loadedStrings
+        nativeTime = CFAbsoluteTimeGetCurrent() - startTime
+        isShowingDatabaseContent = false
     }
 }
 
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
-
-#Preview {
-    ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }

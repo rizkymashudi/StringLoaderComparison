@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A9555ED2C2169E900E616C4 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9555EC2C2169E900E616C4 /* DatabaseManager.swift */; };
+		4A9555F02C216BB000E616C4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A9555EE2C216BB000E616C4 /* Localizable.strings */; };
 		F56D60222C1E121300AAF1D7 /* StringLoaderExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56D60212C1E121300AAF1D7 /* StringLoaderExampleApp.swift */; };
 		F56D60242C1E121300AAF1D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56D60232C1E121300AAF1D7 /* ContentView.swift */; };
 		F56D60262C1E121600AAF1D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F56D60252C1E121600AAF1D7 /* Assets.xcassets */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A9555EC2C2169E900E616C4 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		4A9555EF2C216BB000E616C4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F56D601E2C1E121300AAF1D7 /* StringLoaderExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StringLoaderExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F56D60212C1E121300AAF1D7 /* StringLoaderExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringLoaderExampleApp.swift; sourceTree = "<group>"; };
 		F56D60232C1E121300AAF1D7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -39,6 +43,7 @@
 		F56D60152C1E121300AAF1D7 = {
 			isa = PBXGroup;
 			children = (
+				4A9555EE2C216BB000E616C4 /* Localizable.strings */,
 				F56D60202C1E121300AAF1D7 /* StringLoaderExample */,
 				F56D601F2C1E121300AAF1D7 /* Products */,
 			);
@@ -61,6 +66,7 @@
 				F56D602A2C1E121600AAF1D7 /* Persistence.swift */,
 				F56D602C2C1E121600AAF1D7 /* StringLoaderExample.xcdatamodeld */,
 				F56D60272C1E121600AAF1D7 /* Preview Content */,
+				4A9555EC2C2169E900E616C4 /* DatabaseManager.swift */,
 			);
 			path = StringLoaderExample;
 			sourceTree = "<group>";
@@ -132,6 +138,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F56D60292C1E121600AAF1D7 /* Preview Assets.xcassets in Resources */,
+				4A9555F02C216BB000E616C4 /* Localizable.strings in Resources */,
 				F56D60262C1E121600AAF1D7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -145,12 +152,24 @@
 			files = (
 				F56D602E2C1E121600AAF1D7 /* StringLoaderExample.xcdatamodeld in Sources */,
 				F56D602B2C1E121600AAF1D7 /* Persistence.swift in Sources */,
+				4A9555ED2C2169E900E616C4 /* DatabaseManager.swift in Sources */,
 				F56D60242C1E121300AAF1D7 /* ContentView.swift in Sources */,
 				F56D60222C1E121300AAF1D7 /* StringLoaderExampleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		4A9555EE2C216BB000E616C4 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4A9555EF2C216BB000E616C4 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		F56D602F2C1E121600AAF1D7 /* Debug */ = {
