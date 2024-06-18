@@ -9,9 +9,7 @@
 import Foundation
 import CoreData
 
-
 extension AppStringLocalEntity {
-
     @nonobjc public class func fetchRequest() -> NSFetchRequest<AppStringLocalEntity> {
         return NSFetchRequest<AppStringLocalEntity>(entityName: "AppStringLocalEntity")
     }

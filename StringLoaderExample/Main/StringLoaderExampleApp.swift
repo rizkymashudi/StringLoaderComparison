@@ -13,8 +13,9 @@ struct StringLoaderExampleApp: App {
 
     var body: some Scene {
         WindowGroup {
+//            StringLoaderView()
+//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

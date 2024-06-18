@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+struct StringResource: Codable {
+    let strings: [String]
+}
